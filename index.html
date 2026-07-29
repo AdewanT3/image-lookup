@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Lookup</title>
+</head>
+<body>
+
+<h2>Enter Number</h2>
+
+<input id="numberInput">
+<button onclick="findImage()">Search</button>
+
+<br><br>
+
+<img id="resultImage" width="400">
+
+<script>
+
+const lookup = {
+    "1001":"image1.jpg",
+    "1002":"image1.jpg",
+    "1003":"image2.jpg"
+};
+
+function findImage() {
+
+    let number = document.getElementById("numberInput").value;
+
+    if (lookup[number]) {
+        document.getElementById("resultImage").src = lookup[number];
+    } else {
+        alert("Number not found");
+    }
+}
+
+</script>
+
+</body>
+</html>
