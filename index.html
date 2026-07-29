@@ -1,1 +1,49 @@
+<script>
 
+let lookup = {};
+
+fetch("part_lookup.csv")
+  .then(response => response.text())
+  .then(data => {
+
+      const rows = data.split(/\r?\n/);
+
+      rows.slice(1).forEach(row => {
+
+          const cols = row.split(",");
+
+          if(cols.length >= 2){
+
+              const store = cols[0].trim();
+              const image = cols[1].trim();
+
+              if(store && image){
+
+                  lookup[store] = image;
+              }
+          }
+      });
+
+      console.log("Loaded stores:", Object.keys(lookup).length);
+
+  });
+
+function findImage() {
+
+    const store =
+      document.getElementById("storeNumber").value.trim();
+
+    const image = lookup[store];
+
+    if(image){
+
+        document.getElementById("resultImage").src = image;
+
+    } else {
+
+        alert("Store number not found");
+    }
+}
+
+</script>
+``
