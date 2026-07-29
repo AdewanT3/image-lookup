@@ -1,3 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schematic Lookup</title>
+</head>
+<body>
+
+<h2>Enter Store Number</h2>
+
+<input id="storeNumber">
+<button onclick="findImage()">Search</button>
+
+<br><br>
+
+<img id="resultImage" width="600">
+
 <script>
 
 let lookup = {
@@ -9,8 +25,7 @@ let lookup = {
 
 function findImage(){
 
-    let store =
-    document.getElementById("storeNumber").value;
+    let store = document.getElementById("storeNumber").value;
 
     let image = lookup[store];
 
@@ -25,4 +40,6 @@ function findImage(){
 }
 
 </script>
-``
+
+</body>
+</html>
