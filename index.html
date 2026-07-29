@@ -23,13 +23,6 @@
         button {
             font-size: 24px;
             padding: 10px 20px;
-            cursor: pointer;
-        }
-
-        img {
-            margin-top: 30px;
-            max-width: 1000px;
-            max-height: 800px;
         }
     </style>
 </head>
@@ -38,61 +31,16 @@
 
 <h1>Enter Store Number</h1>
 
-<input type="text" id="storeNumber" placeholder="Store Number">
+<input type="text" id="storeNumber">
 <button onclick="findImage()">Search</button>
-
-<br><br>
-
-<img id="resultImage">
 
 <script>
 
-let lookup = {};
-
-window.addEventListener("load", async () => {
-
-    const response = await fetch("part_lookup.csv");
-    const text = await response.text();
-
-    const lines = text.trim().split(/\r?\n/);
-
-    for (let i = 1; i < lines.length; i++) {
-
-        const [store, image] = lines[i].split(",");
-
-        if (store && image) {
-            lookup[store.trim()] = image.trim();
-        }
-    }
-});
-
 function findImage() {
-
-    const store =
-        document.getElementById("storeNumber").value.trim();
-
-    if (lookup[store]) {
-
-        document.getElementById("resultImage").src =
-            lookup[store];
-
-    } else {
-
-        alert("Store number not found");
-    }
+    alert("Button clicked");
 }
-
-document.getElementById("storeNumber")
-.addEventListener("keydown", function(event) {
-
-    if (event.key === "Enter") {
-        findImage();
-    }
-
-});
 
 </script>
 
 </body>
 </html>
-
