@@ -1,1 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schematic Lookup</title>
 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        input {
+            font-size: 24px;
+            padding: 10px;
+            width: 250px;
+        }
+
+        button {
+            font-size: 24px;
+            padding: 10px 20px;
+            margin-left: 10px;
+        }
+
+        img {
+            margin-top: 30px;
+            max-width: 900px;
+            max-height: 700px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Enter Store Number</h1>
+
+<input type="text" id="storeNumber">
+<button onclick="findImage()">Search</button>
+
+<br><br>
+
+<img id="resultImage">
+
+<script>
+
+let lookup = {};
+
+fetch("part_lookup.csv")
+  .then(response => response.text())
+  .then(data => {
+
+      const rows = data.split(/\r?\n/);
+
+      rows.slice(1).forEach(row => {
+
+          const cols = row.split(",");
+
+          if(cols.length > 13){
+
+              const store = cols[0].trim();
+              const schematic = cols[13].trim();
+
+              if(store && schematic){
+
+                  lookup[store] =
+                    "Schematic" + schematic + ".png";
+              }
+          }
+      });
+
+      console.log("Loaded stores:", Object.keys(lookup).length);
+  });
+
+function findImage() {
+
+    const store =
+      document.getElementById("storeNumber").value.trim();
+
+    const image = lookup[store];
+
+    if(image){
+
+        document.getElementById("resultImage").src = image;
+
+    } else {
+
+        alert("Store number not found");
+    }
+}
+
+document
+.getElementById("storeNumber")
+.addEventListener("keypress", function(event){
+
+    if(event.key === "Enter"){
+        findImage();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
