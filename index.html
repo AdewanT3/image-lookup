@@ -1,40 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Schematic Lookup</title>
-</head>
-<body>
-
-<h2>Enter Store Number</h2>
-
-<input id="storeNumber">
-<button onclick="findImage()">Search</button>
-
-<br><br>
-
-<img id="resultImage" width="600">
-
 <script>
 
-let lookup = {};
-
-fetch('part_lookup.csv')
-.then(response => response.text())
-.then(data => {
-
-    let rows = data.split('\n');
-
-    rows.slice(1).forEach(row => {
-
-        let cols = row.split(',');
-
-        if(cols.length >= 2){
-
-            lookup[cols[0].trim()] =
-            cols[1].trim() + ".png";
-        }
-    });
-});
+let lookup = {
+    "7": "Schematic10.png",
+    "8": "Schematic4.png",
+    "12": "Schematic9.png",
+    "23": "Schematic15.png"
+};
 
 function findImage(){
 
@@ -45,8 +16,7 @@ function findImage(){
 
     if(image){
 
-        document.getElementById("resultImage").src =
-        image;
+        document.getElementById("resultImage").src = image;
 
     } else {
 
@@ -55,6 +25,4 @@ function findImage(){
 }
 
 </script>
-
-</body>
-</html>
+``
