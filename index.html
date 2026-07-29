@@ -1,35 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image Lookup</title>
+    <title>Schematic Lookup</title>
 </head>
 <body>
 
-<h2>Enter Number</h2>
+<h2>Enter Store Number</h2>
 
-<input id="numberInput">
+<input id="storeNumber">
 <button onclick="findImage()">Search</button>
 
 <br><br>
 
-<img id="resultImage" width="400">
+<img id="resultImage" width="600">
 
 <script>
 
-const lookup = {
-    "1001":"image1.jpg",
-    "1002":"image1.jpg",
-    "1003":"image2.jpg"
-};
+let lookup = {};
 
-function findImage() {
+fetch('part_lookup.csv')
+.then(response => response.text())
+.then(data => {
 
-    let number = document.getElementById("numberInput").value;
+    let rows = data.split('\n');
 
-    if (lookup[number]) {
-        document.getElementById("resultImage").src = lookup[number];
+    rows.slice(1).forEach(row => {
+
+        let cols = row.split(',');
+
+        if(cols.length >= 2){
+
+            lookup[cols[0].trim()] =
+            cols[1].trim() + ".png";
+        }
+    });
+});
+
+function findImage(){
+
+    let store =
+    document.getElementById("storeNumber").value;
+
+    let image = lookup[store];
+
+    if(image){
+
+        document.getElementById("resultImage").src =
+        image;
+
     } else {
-        alert("Number not found");
+
+        alert("Store number not found");
     }
 }
 
